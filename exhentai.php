@@ -74,6 +74,7 @@ function mkDirectory()
 {
   global $title, $folder;
   $title = str_replace("/", "／", $title);
+  $title = str_replace(";", "_", $title);
 
   $file_name = str_replace(" ", "\\ ", $title);
   $file_name = str_replace("(", "\\(", $file_name);
