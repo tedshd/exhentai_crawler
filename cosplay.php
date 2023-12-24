@@ -91,8 +91,10 @@ function getPageInfo($url)
 
 function mkDirectory()
 {
-  global $title;
+  global $title, $folder;
   $title = str_replace("/", "／", $title);
+  $title = str_replace(";", "_", $title);
+  $title = str_replace("|", "-", $title);
 
   $file_name = str_replace(" ", "\\ ", $title);
   $file_name = str_replace("(", "\\(", $file_name);
@@ -100,8 +102,8 @@ function mkDirectory()
   $file_name = str_replace("'", "\\'", $file_name);
   $file_name = str_replace("&", "\\&", $file_name);
 
-  exec('mkdir ' . 'COSPLAY');
-  exec('cd COSPLAY && mkdir ' . $file_name);
+  exec('mkdir ' . $folder);
+  exec('cd ' . $folder . ' && mkdir ' . $file_name);
 }
 
 function getImageInfo()
@@ -144,6 +146,7 @@ $urlArray = explode(',', $input);
 $title = "==NOT FOUND==";
 $linkArray = [];
 $imgSrcArray = [];
+$folder = 'COSPLAY';
 
 for ($n = 0; $n < sizeof($urlArray); $n++) {
   if (empty($urlArray[$n])) {
@@ -160,6 +163,6 @@ for ($n = 0; $n < sizeof($urlArray); $n++) {
   var_dump($imgSrcArray);
   for ($z = 0; $z < sizeof($imgSrcArray); $z++) {
     var_dump($imgSrcArray[$z]);
-    file_put_contents(__DIR__ . "/COSPLAY/" . $title . "/" . $imgSrcArray[$z]['name'], file_get_contents($imgSrcArray[$z]['url']));
+    file_put_contents(__DIR__ . "/" . $folder . "/" . $title . "/" . $imgSrcArray[$z]['name'], file_get_contents($imgSrcArray[$z]['url']));
   }
 }

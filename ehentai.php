@@ -93,6 +93,7 @@ function mkDirectory()
   $file_name = str_replace(")", "\\)", $file_name);
   $file_name = str_replace("'", "\\'", $file_name);
   $file_name = str_replace("&", "\\&", $file_name);
+  $file_name = str_replace("|", "-", $file_name);
 
   exec('mkdir ' . $folder);
   exec('cd ' . $folder . ' && mkdir ' . $file_name);
